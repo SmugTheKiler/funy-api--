@@ -1,0 +1,15 @@
+{
+    "127.0.0.1": {
+        "token": "awxmhnfiwmvkudadjubpvsfqunplhxrmgzyeif",
+        "requestsTOTAL": 398815,
+        "requests": {
+            "pp": 398702,
+            "howGay": 25,
+            "howSimp": 0,
+            "randomNumber": 14,
+            "randomString": 6,
+            "profile": 1,
+            "mainPage": 19
+        }
+    }
+}
