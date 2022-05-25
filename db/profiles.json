@@ -1,15 +1,41 @@
 {
     "127.0.0.1": {
         "token": "awxmhnfiwmvkudadjubpvsfqunplhxrmgzyeif",
-        "requestsTOTAL": 398815,
+        "requestsTOTAL": 398902,
         "requests": {
-            "pp": 398702,
-            "howGay": 25,
-            "howSimp": 0,
+            "pp": 398749,
+            "howGay": 51,
+            "howSimp": 8,
             "randomNumber": 14,
             "randomString": 6,
-            "profile": 1,
-            "mainPage": 19
+            "profile": 4,
+            "mainPage": 22
+        }
+    },
+    "127.0.3.1": {
+        "token": "awxmhnfiwmvkudadjubpvsfqunplhxrmgzyeif",
+        "requestsTOTAL": 398901,
+        "requests": {
+            "pp": 398749,
+            "howGay": 51,
+            "howSimp": 8,
+            "randomNumber": 14,
+            "randomString": 6,
+            "profile": 4,
+            "mainPage": 21
+        }
+    },
+    "127.0.4.1": {
+        "token": "awxmhnfiwmvkudadjubpvsfqunplhxrmgzyeif",
+        "requestsTOTAL": 398901,
+        "requests": {
+            "pp": 398749,
+            "howGay": 51,
+            "howSimp": 8,
+            "randomNumber": 14,
+            "randomString": 6,
+            "profile": 4,
+            "mainPage": 21
         }
     }
 }

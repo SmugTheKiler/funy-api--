@@ -1,10 +1,10 @@
-require('./register.js')
 const express = require('express')
 const config = require('./config.json')
 const app = express()
 const port = config.port
 const JSONdb = require('simple-json-db')
 const db = new JSONdb('./db/profiles.json')
+let userCount = 0;
 const {
     getpp,
     howsimp,
@@ -16,30 +16,41 @@ const {
 const {
     makeLog
 } = require('./log.js')
+const bannedIPS = config.bannedIPS;
 const endpoints = [
     '/pp',
     ' /howsimp',
     ' /howgay',
     ' /randomnumber',
     ' /randomstring',
-    ' /profile'
+    ' /profile',
+    ' /register'
 ]
-/*                                                          update source control to send code to new organzation.
-{                                                           somehow change to Next.js. Pain.
+/*
+{                                                           
     "port" : "81",
     "tokenREQUIRED" : true,
     "tokenGenerationALLOWED" : true,
-    "RegisterPORT" : "81",
     "bannedIPS" : [ 
         "IP1",
         "IP2"
     ]
 }
 */
-if (!config.port || !config.tokenREQUIRED || !config.tokenGenerationALLOWED || !config.RegisterPORT || !config.bannedIPS) {
+setInterval(() => {
+    let data = db.JSON();
+    let entries = Object.entries(data)
+    let counter = 0;
+    entries.forEach(() => {
+        counter++
+    })
+    userCount = counter
+}, 1500)
+
+if (!config.port || !config.tokenREQUIRED || !config.tokenGenerationALLOWED || !config.bannedIPS) {
     function whyDidUdeleteTheSettingsLikeWtfTheresNoPointInDoingThat__DidYouExpectSomethingToChange_WellThatsNotHowItWorks_PleaseDontChangeAndAlsoGiveMeCreditsForThisThingyIfYouCopied_IJustWannaHaveSomeoneKnowToMe_yk_ItDbeVeryNiceOfYouToJustLikeSay_OhThisGuyGaveMeAsmallThingToMakeThisOrSomethingAndIllbVery_VERY_happy() {
         console.log(`ONE OF THE CONFIG SETTINGS IS MISSING! \n DEFULT SETTINGS:`)
-        return console.log({
+        return console.log(`{
             "port": "81",
             "tokenREQUIRED": true,
             "tokenGenerationALLOWED": true,
@@ -48,15 +59,17 @@ if (!config.port || !config.tokenREQUIRED || !config.tokenGenerationALLOWED || !
                 "IP1",
                 "IP2"
             ]
-        })
+        }
+        IT IS VERY LICKLY IT IS BECAUSE ONE OF THE SETTINGS IS SET TO FALSE!
+        IF THAT'S TRUE, THAN PLEASE IGNORE THIS MESSAGE.`)
     };
     whyDidUdeleteTheSettingsLikeWtfTheresNoPointInDoingThat__DidYouExpectSomethingToChange_WellThatsNotHowItWorks_PleaseDontChangeAndAlsoGiveMeCreditsForThisThingyIfYouCopied_IJustWannaHaveSomeoneKnowToMe_yk_ItDbeVeryNiceOfYouToJustLikeSay_OhThisGuyGaveMeAsmallThingToMakeThisOrSomethingAndIllbVery_VERY_happy()
-}
+};
 app.use(async (req, res, next) => {
 
     makeLog('New request from ' + req.ip + ' to ' + req.path);
 
-    let user = await db.get(req.ip)
+    let user = db.get(req.ip)
 
     if (req.path === '/register') {
         return next();
@@ -144,8 +157,68 @@ app.get('/howgay', (req, res, next) => {
     addRequest(req.ip, 'howGay');
 });
 
+app.get('/register', (req, res, next) => {
 
+    if (config.tokenGenerationALLOWED == false) {
 
+        res.json({
+            message: "Token generation is disabled!",
+            info: "The owner has disabled token generation.",
+            error: true
+        })
+
+    } else if (bannedIPS.includes(req.ip)) {
+
+        res.json({
+            message: "Your IP adress was Permanently banned from registrating tokens.",
+            info: "You are unable to register token(s).",
+            error: true
+        });
+
+    } else if (db.get(req.ip)) {
+
+        res.json({
+            message: "This IP already has a token!",
+            info: "The IP already has a token generated and attached to it. If you wanna regenorate it, ask the staff.",
+            error: true
+        })
+
+    } else {
+
+        let token;
+        token = randomString();
+        const user = {
+            token: token,
+            requestsTOTAL: 1,
+            requests: {
+                pp: 0,
+                howSimp: 0,
+                howGay: 0,
+                randomNumber: 0,
+                randomString: 0,
+                profile: 0
+            },
+        };
+
+        db.set(req.ip, user)
+
+        res.json({
+            message: `New API token created! (In the info header) - Its generated only for your current IP adress (${req.ip})`,
+            info: token,
+            error: false
+        })
+    };
+});
+
+app.get('/stats', (req, res, next) => {
+    res.json({
+        message: randomString(),
+        info: "Generates a random string that you can use for anything like making tokens, passwords, IDs, ect.",
+        error: false
+    });
+    addRequest(req.ip, 'randomString');
+
+})
 
 app.listen(port, '0.0.0.0', () => {
 
@@ -154,10 +227,9 @@ app.listen(port, '0.0.0.0', () => {
 })
 
 app.get('/', (req, res, next) => {
-    res.send(`Hey! Thanks for using our API! All of the avalible API endpoints: \n ${endpoints} \n \n | most of them will give output in JSON format with 'message'. To get more infromation about an endpoint, read the "info." header.`)
+    res.send(`Hey! Thanks for using our API! All of the avalible API endpoints: \n ${endpoints} \n \n | most of them will give output in JSON format with 'message'. To get more infromation about an endpoint, read the "info." header. \n \n Total amount of users: ${userCount}`)
     addRequest(req.ip, 'mainPage')
 });
-
 
 /*
           STATUS_CODES: {

@@ -48,7 +48,6 @@ async function addRequest(ip, requestName) {
     let user = await db.get(ip)
 
     db.set(user.requestsTOTAL++)
-
     if (requestName === 'randomNumber') {
         await db.set(user.requests.randomNumber++)
     } else if (requestName === 'pp') {

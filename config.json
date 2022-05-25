@@ -1,8 +1,7 @@
 {
-    "port" : "81",
+    "port" : "80",
     "tokenREQUIRED" : true,
     "tokenGenerationALLOWED" : true,
-    "RegisterPORT" : "81",
     "bannedIPS" : [ 
         "IP1",
         "IP2"
