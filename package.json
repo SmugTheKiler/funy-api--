@@ -1,7 +1,27 @@
 {
+  "name": "funy-api",
+  "description": "Api made for fun.",
+  "version": "1.7",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
   "dependencies": {
     "axios": "^0.25.0",
     "express": "^4.17.2",
-    "simple-json-db": "^1.2.3"
-  }
+    "simple-json-db": "^1.2.3",
+    "addon": "0.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MatrixDevelopment-GH/funy-api"
+  },
+  "keywords": [],
+  "author": "SmugTheKiler",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MatrixDevelopment-GH/funy-api"
+  },
+  "homepage": "https://api.matrixdev.xyz"
 }

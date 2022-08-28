@@ -26,6 +26,20 @@ const endpoints = [
     ' /profile',
     ' /register'
 ]
+
+// ONLY TAKE THIS OUT OF THE COMMENTS IF YOU KNOW WHAT YOU'RE DOING AND HAVE ALREADY FIXED AND ADJUSTED IT AND STUFF.
+/*
+var addon = require('addon');
+
+var addons = {};
+ // READ MORE ABOUT ADDONS IN /info/plugins.md
+addon.call(addons, __dirname + '/plugins/*.js');
+ 
+addons.hello();
+*/
+
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=
+
 /*
 {                                                           
     "port" : "81",
@@ -48,7 +62,7 @@ setInterval(() => {
 }, 1500)
 
 if (!config.port || !config.tokenREQUIRED || !config.tokenGenerationALLOWED || !config.bannedIPS) {
-    function whyDidUdeleteTheSettingsLikeWtfTheresNoPointInDoingThat__DidYouExpectSomethingToChange_WellThatsNotHowItWorks_PleaseDontChangeAndAlsoGiveMeCreditsForThisThingyIfYouCopied_IJustWannaHaveSomeoneKnowToMe_yk_ItDbeVeryNiceOfYouToJustLikeSay_OhThisGuyGaveMeAsmallThingToMakeThisOrSomethingAndIllbVery_VERY_happy() {
+    function whyDidUdeleteTheSettingsLikeWtfTheresNoPointInDoingThat__DidYouExpectSomethingToChange_WellThatsNotHowItWorks_PleaseDontChangeAndAlsoGiveMeCreditsForThisThingyIfYouCopied_IJustWannaHaveSomeoneToKnowMe_yk_ItDbeVeryNiceOfYouToJustLikeSay_OhThisGuyGaveMeAsmallThingToMakeThisOrSomethingAndIllbVery_VERY_happy() {
         console.log(`ONE OF THE CONFIG SETTINGS IS MISSING! \n DEFULT SETTINGS:`)
         return console.log(`{
             "port": "81",
@@ -63,7 +77,11 @@ if (!config.port || !config.tokenREQUIRED || !config.tokenGenerationALLOWED || !
         IT IS VERY LICKLY IT IS BECAUSE ONE OF THE SETTINGS IS SET TO FALSE!
         IF THAT'S TRUE, THAN PLEASE IGNORE THIS MESSAGE.`)
     };
-    whyDidUdeleteTheSettingsLikeWtfTheresNoPointInDoingThat__DidYouExpectSomethingToChange_WellThatsNotHowItWorks_PleaseDontChangeAndAlsoGiveMeCreditsForThisThingyIfYouCopied_IJustWannaHaveSomeoneKnowToMe_yk_ItDbeVeryNiceOfYouToJustLikeSay_OhThisGuyGaveMeAsmallThingToMakeThisOrSomethingAndIllbVery_VERY_happy()
+    if(config.warnings == false) {
+// this is left blank for.... proffesional reasons. (but really, don't add anything like "return;" here. It's not gonna be good.  )
+    } else {
+    whyDidUdeleteTheSettingsLikeWtfTheresNoPointInDoingThat__DidYouExpectSomethingToChange_WellThatsNotHowItWorks_PleaseDontChangeAndAlsoGiveMeCreditsForThisThingyIfYouCopied_IJustWannaHaveSomeoneToKnowMe_yk_ItDbeVeryNiceOfYouToJustLikeSay_OhThisGuyGaveMeAsmallThingToMakeThisOrSomethingAndIllbVery_VERY_happy()
+    };
 };
 app.use(async (req, res, next) => {
 
@@ -161,23 +179,30 @@ app.get('/register', (req, res, next) => {
 
     if (config.tokenGenerationALLOWED == false) {
 
-        res.json({
+        return res.json({
             message: "Token generation is disabled!",
-            info: "The owner has disabled token generation.",
+            info: "The owner has disabled Token Generation.",
             error: true
+        })
+
+    } else if (config.tokenREQUIRED == false){
+
+        return res.json({
+            message: "Tokens are not required, so no token.",
+            info: "Token Generation is Disabled."
         })
 
     } else if (bannedIPS.includes(req.ip)) {
 
-        res.json({
+        return  res.json({
             message: "Your IP adress was Permanently banned from registrating tokens.",
-            info: "You are unable to register token(s).",
+            info: "You are unable to register token.",
             error: true
         });
 
     } else if (db.get(req.ip)) {
 
-        res.json({
+        return res.json({
             message: "This IP already has a token!",
             info: "The IP already has a token generated and attached to it. If you wanna regenorate it, ask the staff.",
             error: true

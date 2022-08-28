@@ -2,8 +2,10 @@
     "port" : "80",
     "tokenREQUIRED" : true,
     "tokenGenerationALLOWED" : true,
+    "warnings": true,
+    "logging": 3,
     "bannedIPS" : [ 
         "IP1",
-        "IP2"
+        "IP2" 
     ]
 }

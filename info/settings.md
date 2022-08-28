@@ -1,17 +1,34 @@
 {
-    "port" : "81",
-    "tokenREQUIRED" : false,
+    "port" : "80",
+    "tokenREQUIRED" : true,
+    "tokenGenerationALLOWED" : true,
+    "warnings": true,
+    "logging": 3,
     "bannedIPS" : [ 
         "IP1",
-        "IP2"
-    ],
-    "tokenGenerationALLOWED" : true
+        "IP2" 
+    ]
 }
 
-- Port stands for the port the api is gonna run on. 81 is the defult port, so its recommended.
+- Port 
+The port the api is gonna run on. (Recommended not to change)
 
-- tokenREQUIRED is if you want the api to require a token. If not, put false. If yes, put true.
+- tokenREQUIRED
+If requests made to the api require a token.
+**WARNING: If false, Token Generation will also be disabled.**
 
-- bannedIPS is for IPS banned from registrating tokens.
+- tokenGenerationALLOWED
+If users can generate new tokens. 
 
-- tokenGenerationALLOWED alows users to request a new token from the api.
+- wanings
+If you wanna be warned about the some stuff in the api. 
+
+- logging
+Select how and where you log your requests.
++ 0 - no logging
++ 1 - logging to a .txt file
++ 2 - logging into the console
++ 3 - logging into the console and into the .txt file
+
+- bannedIPS
+Type the IP's of the users you do not want to use your api or look like they spam it.

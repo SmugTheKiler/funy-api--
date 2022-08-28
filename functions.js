@@ -36,10 +36,13 @@ function randomString() {
 }
 
 function profile(ip) {
+    if(config.tokenREQUIRED === false) {
+        return null;
+    } else {
     let user = db.get(ip);
-
     return user;
-}
+    };
+};
 
 //------------------------------------------------------
 //                     SYSTEM FUNCTIONS
