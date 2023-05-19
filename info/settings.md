@@ -8,6 +8,10 @@
     "tokenGenerationALLOWED" : true
 }
 
+
+
+
+
 - Port stands for the port the api is gonna run on. 81 is the defult port, so its recommended.
 
 - tokenREQUIRED is if you want the api to require a token. If not, put false. If yes, put true.
